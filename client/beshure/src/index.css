@@ -1,0 +1,348 @@
+@import url('https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Khula:wght@300;400;600;700;800&family=Mochiy+Pop+One&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Mouse+Memoirs&family=Outfit:wght@100..900&family=Playwrite+US+Modern:wght@100..400&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sarala:wght@400;700&display=swap');
+@import "tailwindcss";
+
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* https://kilianvalkhof.com/2022/css-html/your-css-reset-needs-text-size-adjust-probably/ */
+  html {
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+  }
+
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  figure,
+  blockquote,
+  dl,
+  dd {
+    margin: 0;
+  }
+
+  /* https://www.scottohara.me/blog/2019/01/12/lists-and-safari.html */
+  [role="list"] {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    min-block-size: 100vh;
+    line-height: 1.6;
+  }
+
+ 
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p,
+  li {
+    text-wrap: pretty;
+  }
+
+  img,
+  picture {
+    max-inline-size: 100%;
+    display: block;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font-size: inherit;
+    font-weight: inherit;
+    font-style: inherit;
+    line-height: inherit;
+    /* Note: font-family is intentionally excluded to allow utility classes to override it */
+  }
+}
+
+@layer base {
+  :root {
+	--clr-brown-900: #220901;
+	--clr-red-800: #621708;
+	--clr-red-700: #941b0c;
+	--clr-orange-600: #bc3908;
+  --clr-orange-500: #EB3312;
+	--clr-orange-200: #ffb997;
+	--clr-primary-500: #eb3312;
+	--clr-gray-100: #e5e8eb;
+	--clr-gray-900: #171212;
+	--clr-gray-800: #261c1c;
+	--clr-brown-700: #54403d;
+	--clr-brown-300: #b8a19e;
+	--clr-white-off: #f5f2f0;
+	--clr-brown-500: #876963;
+
+	/* primitives here */
+
+
+
+
+	/* font sizes */
+
+	
+	--fs-400: 0.875rem; /* 14px */
+	--fs-500: 1rem; /* 16px */
+	--fs-600: 1.125rem; /* 18px */
+	--fs-700: 1.25rem; /* 20px */
+	--fs-800: 1.5rem; /* 24px */
+	--fs-900: 1.75rem; /* 28px */	
+	--fs-1000: 2rem; /* 32px */
+	
+
+	@media (width > 760px) {
+		--fs-300: 0.875rem; /* 14px */
+	--fs-400: 1rem; /* 16px */
+	--fs-500: 1.1rem; /* 22px */
+	--fs-600: 1.5rem; /* 24px */
+	--fs-700: 1.75rem; /* 28px */
+	--fs-800: 2.25rem; /* 36px */
+	--fs-900: 2.125rem; /* 42px */
+	--fs-1000: 2.6rem; /* 48px */
+
+	}
+
+
+	
+	
+  }
+
+  body {
+	font-family: "Plus Jakarta Sans", sans-serif;
+	font-size: var(--fs-500);
+	color: var(--clr-brown-900);
+	background-color: var(--clr-white-off);
+
+
+  }
+
+
+  h1,
+  h2,
+  h3,
+  h4 {
+	font-family: "Plus Jakarta Sans", sans-serif;
+	font-weight: 700;
+	color: var(--clr-gray-800)
+  }
+
+  a {
+	color: var(--clr-primary-500)
+  }
+
+  a:hover,
+  a:focus {
+	color: var(--clr-red-700);
+  }
+
+
+}
+
+@theme {
+    
+	--color-clr-brown-900: var(--clr-brown-900);
+	--color-clr-red-800: var(--clr-red-800);
+	--color-clr-red-700: var(--clr-red-700);
+	--color-clr-orange-600: var(--clr-orange-600);
+	--color-clr-orange-200: var(--clr-orange-200);
+	--color-clr-primary-500: var(--clr-primary-500);
+	--color-clr-gray-100: var(--clr-gray-100);
+	--color-clr-gray-900: var(--clr-gray-900);
+	--color-clr-gray-800: var(--clr-gray-800);
+	--color-clr-brown-700: var(--clr-brown-700);
+	--color-clr-brown-300: var(--clr-brown-300);
+	--color-clr-brown-500: var(--clr-brown-500);
+	--color-clr-white-off: var(--clr-white-off);
+  --color-clr-orange-500: var(--clr-orange-500);
+
+
+	/* font sizes */
+
+	
+
+
+}
+
+@layer layout {
+  .wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16rem 3rem;
+  }
+
+  .gradient-layer {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("homepage-hero.png");
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.10) 0%, rgba(0, 0, 0, 0.40) 100%), url("homepage-hero.png") lightgray 50% / cover no-repeat;
+
+}
+}
+
+   
+@layer utilities {
+  .visually-hidden {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  /* Animated gradient background */
+  @keyframes gradient-x {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+  
+  .animate-gradient-x {
+    animation: gradient-x 8s ease infinite;
+  }
+
+  .y-margin {
+    --gap: .5rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+
+    @media (min-width: 768px) {
+      --gap: 1rem;
+    }
+  }
+
+ 
+  .textStyleHeadingRegular {
+    font-size: var(--fs-800) !important;  
+    font-family: Poppins !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    text-decoration: none !important;
+    text-transform: none !important;
+  }
+  .textStyleHeadingSemiBold {
+    font-size: var(--fs-800) !important;  
+    font-family: Poppins !important;
+    font-weight: 600 !important;
+    font-style: normal !important;
+    text-decoration: none !important;
+    text-transform: none !important;
+  }
+  .textStyleHeading2Regular {
+    font-size: var(--fs-800) !important;  
+    font-family: Poppins !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    text-decoration: none !important;
+    text-transform: none !important;
+  }
+  .textStyleHeading2SemiBold {
+    font-size: var(--fs-800) !important;  
+    font-family: Poppins !important;
+    font-weight: 600 !important;
+    font-style: normal !important;
+    text-decoration: none !important;
+    text-transform: none !important;
+  }
+  .textStyleBody {
+    font-size: var(--fs-500) !important; 
+    font-family: Poppins !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    text-decoration: none !important;
+    text-transform: none !important;
+  }
+  .textStyleHeroHeading {
+    font-size: var(--fs-1000) !important;  
+    font-family: "Plus Jakarta Sans" !important;
+    font-weight: 700 !important;
+    font-style: normal !important;
+    text-decoration: none !important;
+    text-transform: none !important;
+  }
+  .textStyleHomepageHeadingBold {
+    font-size: var(--fs-1000) !important;  
+    font-family: "Plus Jakarta Sans" !important;
+    font-weight: 800 !important;
+    font-style: normal !important;
+    line-height: 60px !important;
+    letter-spacing: -2px !important;
+    text-decoration: none !important;
+    text-transform: none !important;
+  }
+  .textStyleDescription {
+    font-size: var(--fs-500) !important;  
+    font-family: "Plus Jakarta Sans" !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    line-height: 24px !important;
+    text-decoration: none !important;
+    text-transform: none !important;
+  }
+  .textStyleBody {
+    font-size: var(--fs-500) !important;  
+    font-family: "Plus Jakarta Sans" !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    line-height: 24px !important;
+    text-decoration: none !important;
+    text-transform: none !important;
+  }
+  .textStyleHeadingWelcomePage {
+    font-size: var(--fs-900) !important;  
+    font-family: "Plus Jakarta Sans" !important;
+    font-weight: 700 !important;
+    font-style: normal !important;
+    line-height: 35px !important;
+    text-decoration: none !important;
+    text-transform: none !important;
+  }
+  .textStyleBodyMedium {
+    font-size: var(--fs-500) !important;  
+    font-family: "Plus Jakarta Sans" !important;
+    font-weight: 500 !important;
+    font-style: normal !important;
+    line-height: 24px !important;
+    text-decoration: none !important;
+    text-transform: none !important;
+  }
+  .textStyleBold22 {
+    font-size: var(--fs-500) !important;  
+    font-family: "Plus Jakarta Sans" !important;
+    font-weight: 700 !important;
+    font-style: normal !important;
+    line-height: 28px !important;
+    text-decoration: none !important;
+    text-transform: none !important;
+  }
+  .textStyleRegular14 {
+    font-size: var(--fs-400) !important; 
+    font-family: "Plus Jakarta Sans" !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    line-height: 21px !important;
+    text-decoration: none !important;
+    text-transform: none !important;
+  }
+}
