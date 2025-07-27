@@ -7,6 +7,8 @@ function AlertBox() {
             
             <div className="relative backdrop-blur-lg rounded-2xl bg-white/70 p-6 overflow-hidden">
                 {/* Mac-like window controls */}
+
+
                 
                 <div className="absolute top-4 left-4 flex space-x-2">
                     <div className="w-3 h-3 rounded-full bg-red-500 hover:cursor-pointer"></div>
