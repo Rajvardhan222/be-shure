@@ -7,6 +7,7 @@ function AlertBox() {
             
             <div className="relative backdrop-blur-lg rounded-2xl bg-white/70 p-6 overflow-hidden">
                 {/* Mac-like window controls */}
+                
                 <div className="absolute top-4 left-4 flex space-x-2">
                     <div className="w-3 h-3 rounded-full bg-red-500 hover:cursor-pointer"></div>
                     <div className="w-3 h-3 rounded-full bg-yellow-400 hover:cursor-pointer"></div>
@@ -14,6 +15,7 @@ function AlertBox() {
                 </div>
                 
                 {/* Content */}
+
                 <div className="mt-8 mb-6 text-center">
                     <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-12 h-12 text-gray-500">
