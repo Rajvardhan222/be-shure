@@ -1,6 +1,9 @@
 import { Route, Router, Routes } from "react-router-dom"
 import Home from "./pages/Home"
 import Register from "./pages/Register"
+import Search from "./pages/Search"
+import ShopList from "./pages/ShopList"
+import Product from "./pages/Product"
 
 function App() {
   
@@ -10,7 +13,7 @@ function App() {
       <Routes>
         {/* // private routes */}
 
-        <Route path="/" element={<Register />} />
+        <Route path="/" element={<Product />} />
         {/* <Router path="/products" /> */}
 
 
