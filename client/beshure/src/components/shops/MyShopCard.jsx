@@ -11,7 +11,7 @@ function MyShopCard() {
             </div>
         </div>
        
-            <img className='w-full h-26 sm:h-44 sm:w-44 rounded-lg object-cover' src="shop.png" alt="" />
+            <img className='w-full h-26 sm:h-44 sm:w-44 rounded-lg object-cover' src="/shop.png" alt="" />
         
     </div>
   )

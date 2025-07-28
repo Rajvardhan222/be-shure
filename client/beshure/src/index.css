@@ -138,7 +138,7 @@
   h6 {
 	font-family: "Plus Jakarta Sans", sans-serif !important;
 	font-weight: 700 !important;
-	color: var(--clr-gray-800) !important;
+	color: var(--clr-gray-800) ;
   }
 
   a {
@@ -183,12 +183,15 @@
     padding: 16rem 3rem;
   }
 
-  .gradient-layer {
+  .gradient-layer-consumer, .gradient-layer-shops {
     background-repeat: no-repeat;
     background-size: cover;
     background-image: url("homepage-hero.png");
     background: linear-gradient(90deg, rgba(0, 0, 0, 0.10) 0%, rgba(0, 0, 0, 0.40) 100%), url("homepage-hero.png") lightgray 50% / cover no-repeat;
 
+}
+.gradient-layer-shops {
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0.10) 0%, rgba(0, 0, 0, 0.40) 100%), url("shop-hero.png") lightgray 50% / cover no-repeat;
 }
 }
 

@@ -1,8 +1,10 @@
 import React from 'react'
 import Button from '../components/shops/Button'
 import MyShopCard from '../components/shops/MyShopCard'
+import { useParams } from 'react-router-dom'
 
 function ShopList() {
+  let userId = useParams().userId
   return (
     <div className='max-w-[900px] m-auto h-screen w-screen'>
         <div className='flex items-center justify-between p-4'>
