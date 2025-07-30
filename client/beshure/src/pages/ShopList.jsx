@@ -4,6 +4,7 @@ import MyShopCard from '../components/shops/MyShopCard'
 import { useParams } from 'react-router-dom'
 
 function ShopList() {
+  // eslint-disable-next-line no-unused-vars
   let userId = useParams().userId
   return (
     <div className='max-w-[900px] m-auto h-screen w-screen'>

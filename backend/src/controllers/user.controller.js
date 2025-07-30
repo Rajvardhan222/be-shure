@@ -10,13 +10,12 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { getUserById } from "../service/user.service.js";
 
 import bcrypt from "bcrypt";
- 
+
 const generateAccessAndRefereshToken = async (userId) => {
   try {
     const user = await getUserById(userId);
     const accessToken = await generateAccessToken(user.id);
     const refreshToken = await generateRefreshToken(user.id);
-    
 
     await prisma.user.update({
       where: {
@@ -29,11 +28,10 @@ const generateAccessAndRefereshToken = async (userId) => {
 
     return { refreshToken, accessToken };
   } catch (error) {
-   
     throw new ApiError(
       500,
       "something went wrong while generating referesh tokens and access tokens",
-        error.message
+      error.message
     );
   }
 };
@@ -43,7 +41,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   // validate input from frontend
 
-  if (!fullname || !email || !phone || !password) {
+  if (!fullname || !password) {
     throw new ApiError(400, "All fields are required");
   }
 
@@ -51,12 +49,12 @@ const registerUser = asyncHandler(async (req, res) => {
 
   const existingUser = await prisma.user.findUnique({
     where: {
-      email: email,
+      name: fullname,
     },
   });
 
   if (existingUser) {
-    throw new ApiError(400, "User already exists with this email");
+    throw new ApiError(400, "User already exists with this username");
   }
 
   // hash password
@@ -66,11 +64,10 @@ const registerUser = asyncHandler(async (req, res) => {
   // create user
   const user = await prisma.user.create({
     data: {
-      name:fullname,
-      email,
-      phone,
+      name: fullname,
+
       password: hashedPassword,
-      refreshToken:""
+      refreshToken: "",
     },
   });
 
@@ -88,17 +85,17 @@ const registerUser = asyncHandler(async (req, res) => {
 });
 
 const loginUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+  const { name, password } = req.body;
 
   // validate input from frontend
-  if (!email || !password) {
+  if (!name || !password) {
     throw new ApiError(400, "Email and password are required");
   }
 
   // find user by email
   const user = await prisma.user.findUnique({
     where: {
-      email: email,
+      name: name,
     },
   });
 
@@ -115,11 +112,10 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 
   // generate tokens
-    
+
   const { accessToken, refreshToken } = await generateAccessAndRefereshToken(
     user.id
   );
-
 
   delete user.password; // remove password from user object
 
