@@ -9,7 +9,7 @@ router.route("/new").post(verifyJWT,createProduct)
 
 router.route("/list-products/:shopId").get(verifyJWT, listProducts);
 
-router.route("/update-availability/:id").put(verifyJWT, updateProductAvailability);
+router.route("/update/:id").put(verifyJWT, updateProductAvailability);
 
 router.route("/search").get(getNearbyProducts);
 

@@ -16,7 +16,13 @@ const createProduct = asyncHandler(async (req, res) => {
 
   // Check if the shop exists
   const productAlreadyThere = await prisma.product.findUnique({
-    where: {name:name} })
+    where: {
+      name_shopId: {
+      name: name,
+      shopId: shopId
+    }
+
+  }  })
 
     if(productAlreadyThere){
       throw new ApiError(400, "A product with this name already exists in your shop (Please dont confuse your customers)");
@@ -61,27 +67,41 @@ const listProducts = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200,products, "Products retrieved successfully"));
 });
 
-const updateProductAvailability = asyncHandler(async (req, res) => {
+const updateProduct = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { available } = req.body;
+  const { available,name,category,price } = req.body;
 
-  if (available === undefined) {
-    throw new ApiError(400, "Availability status is required");
+  if (available === undefined || available === null|| !name || !category || !price) {
+    throw new ApiError(400, "All fields are required");
   }
 
-  const product = await prisma.products.update({
+  // Check if the product exists
+  const existingProduct = await prisma.product.findUnique({
     where: { id: id },
-    data: { available: available },
+  });
+
+  if (!existingProduct) {
+    throw new ApiError(404, "Product not found");
+  }
+
+  const product = await prisma.product.update({
+    where: { id: id },
+    data: { 
+      available: available,
+      name: name ,
+      category: category ,
+      price:  parseInt(price), // Ensure price is a number
+     },
   });
 
   if (!product) {
-    throw new ApiError(404, "Product not found");
+    throw new ApiError(404, "Could not update product");
   }
 
   res
     .status(200)
     .json(
-      new ApiResponse(200, "Product availability updated successfully", product)
+      new ApiResponse(200,product, "Product availability updated successfully")
     );
 });
 
@@ -158,6 +178,6 @@ const getNearbyProducts = asyncHandler(async (req, res) => {
 export {
   createProduct,
   listProducts,
-  updateProductAvailability,
+  updateProduct as updateProductAvailability,
   getNearbyProducts
 }

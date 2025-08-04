@@ -38,3 +38,16 @@ export const searchClosestProducts = withErrorHandler(
         return response.data;
     }
 )
+
+export const updateProduct = withErrorHandler(
+    async (id, available, name, category, price) => {
+        const response = await axiosInstance.put(`/products/update/${id}`, {
+            available,
+            name,
+            category,
+            price
+        });
+
+        return response.data;
+    }
+)

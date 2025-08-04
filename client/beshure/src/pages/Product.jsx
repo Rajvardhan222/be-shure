@@ -44,6 +44,9 @@ function Product() {
 
   const handleCloseModal = () => {
     setIsAlertOpen(false);
+    dispatch({
+      type: "products/clearError",
+    })
     setTimeout(() => {
       setShouldRender(false);
     }, 300);
@@ -67,38 +70,7 @@ function Product() {
   };
   const shopId = window.location.pathname.split("/").pop();
 
-  const addOrUpdateProduct = async (data) => {
-    console.log("Form Data:", data);
-
-    try {
-      // TODO: Add your API call here
-      // await dispatch(createProduct(data)).unwrap();
-
-      console.log("Product added successfully!");
-
-      try {
-        await dispatch(
-          createNewProduct({
-            shopId,
-            name: data.productName,
-            category: data.category,
-            price: data.price,
-            availability: data.availability,
-          })
-        ).unwrap();
-        fetchProducts();
-
-        reset(); // Reset form after successful submission
-        handleCloseModal(); // Close modal on success
-      } catch (error) {
-        console.error("Error creating product:", error);
-        // Handle error here, e.g., show a notification
-      }
-    } catch (error) {
-      console.error("Error adding product:", error);
-      // Handle error here
-    }
-  };
+ 
 
   const fetchProducts = async () => {
     try {
@@ -213,6 +185,7 @@ function Product() {
                           price={editingProduct?.price}
                           availability={editingProduct?.available}
                           update={true}
+                          id={editingProduct?.id}
                           formId={`update-product-form-${item.id}`}
                         />
                       </AlertBox>

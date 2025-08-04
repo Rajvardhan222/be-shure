@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import {createNewProduct as createNewProductApi,listProducts as listProductsApi,searchClosestProducts as searchClosestProductsApi} from "../../api/product/product.api.js"
+import {createNewProduct as createNewProductApi,listProducts as listProductsApi,searchClosestProducts as searchClosestProductsApi,updateProduct as updateProductApi} from "../../api/product/product.api.js"
 
 
 export const createNewProduct = createAsyncThunk(
@@ -41,6 +41,19 @@ export const searchClosestProducts = createAsyncThunk(
             return response.data;
         } catch (error) {
             return rejectWithValue(error.message || 'Failed to search closest products');
+        }
+    }
+);
+
+
+export const updateProduct = createAsyncThunk(
+    'products/updateProduct',
+    async ({ id, available, name, category, price }, { rejectWithValue }) => {
+        try {
+            const response = await updateProductApi(id, available, name, category, price);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.message || 'Failed to update product');
         }
     }
 );

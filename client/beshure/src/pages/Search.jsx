@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import SearchBar from '../components/people/SearchBar'
 import { useSearchParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
@@ -12,13 +12,16 @@ import { useDispatch, useSelector } from 'react-redux'
 function Search() {
   // Modern React Router way to get search params
   const [searchParams] = useSearchParams();
+
+  
   const searchQuery = searchParams.get('s') || '';
+ 
 
   // Local loading state for search
   const [isSearching, setIsSearching] = useState(false);
 
   // Move form state here
-  const { register, handleSubmit, watch } = useForm({
+  const { register, handleSubmit, watch ,errors,clearErrors} = useForm({
     defaultValues: {
       search: searchQuery,
     },
@@ -80,12 +83,19 @@ function Search() {
     }
   };
 
+  useEffect(()=>{
+    if(searchQuery.length > 2) {
+      onSubmit({search:searchQuery})
+    }
+  },[])
+
   return (
     <div className=' max-w-[1000px] m-auto bg-white h-screen w-screen py-4 px-6'>
         <SearchBar
           register={register}
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
+         
           loading={isSearching} // Use local loading state instead of Redux loading
         />
       { currentSearchValue !== '' && <h1 className='mt-5 text-xl '>

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createNewProduct, listProducts, searchClosestProducts } from "./product.actions.js";
+import { createNewProduct, listProducts, searchClosestProducts, updateProduct } from "./product.actions.js";
 
 const productSlice = createSlice({
     name: "products",
@@ -50,6 +50,23 @@ const productSlice = createSlice({
                 state.searchResults = action.payload?.data;
             })
             .addCase(searchClosestProducts.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+            .addCase(updateProduct.pending, (state) => {
+                state.loading = true;
+                
+            })
+            .addCase(updateProduct.fulfilled, (state, action) => {
+                state.loading = false;
+                console.log(action.payload.data.id)
+                const index = state.items.findIndex(item => item.id === action.payload?.data?.id);
+                console.log("index", index)
+                if (index !== -1) {
+                    state.items[index] = action.payload.data;
+                }
+            })
+            .addCase(updateProduct.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             });

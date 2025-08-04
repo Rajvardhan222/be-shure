@@ -43,13 +43,15 @@ model Shops {
 
 model Product {
   id        String   @id @default(uuid())
-  shopId    String
+  shopId    String  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  name      String  @unique
+  name      String
   available Boolean
   price     Int
   category  String
+  
+  @@unique([name, shopId])
 
   shop Shops @relation(fields: [shopId], references: [id])
 }

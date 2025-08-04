@@ -5,23 +5,41 @@ import {selectError,selectLoading} from "../../store/features/product.reducer.js
 import {
   createNewProduct,
   listProducts,
+  updateProduct,
 
 } from "../../store/features/product.actions.js";
 import AddProductInput from './AddProductInput.jsx';
 import Switcher1 from './Switcher1.jsx';
-function CreateOrEditProduct({productName, category, price, availability,update,fetchProducts,handleCloseModal,formId}) {
+function CreateOrEditProduct({productName, category, price,id, availability,update,fetchProducts,handleCloseModal,formId}) {
+ 
     const {register, handleSubmit, formState: { errors }, control, reset} = useForm({
         defaultValues: {
-            productName: productName || "",
-            category: category || "",
-            price: price || 0,
-            availability: availability || true,
+            productName: productName ?? "",
+            category: category ?? "",
+            price: price ?? 0,
+            availability: availability ?? true,
         }
     });
   const shopId = window.location.pathname.split("/").pop();
     const addOrUpdateProduct = async(data) => {
-        if(update) {
+        if(update) { 
             //TODO create update product api 
+            console.log(data)
+
+            try{
+                await dispatch(updateProduct({
+                    id: id,
+                    available: data.availability,
+                    name: data.productName,
+                    category: data.category,
+                    price: data.price
+                })).unwrap();
+               
+                reset(); // Reset form after successful submission
+                handleCloseModal(); // Close modal on success
+            }catch(error){
+              console.error("Error updating product:", error);
+            }
         }
         else {
              console.log("Form Data:", data);
@@ -46,6 +64,9 @@ function CreateOrEditProduct({productName, category, price, availability,update,
             
                     reset(); // Reset form after successful submission
                     handleCloseModal(); // Close modal on success
+                    dispatch({
+                      type:'products/clearError'
+                    })
                   } catch (error) {
                     console.error("Error creating product:", error);
                     // Handle error here, e.g., show a notification
