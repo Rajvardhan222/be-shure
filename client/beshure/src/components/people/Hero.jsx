@@ -1,10 +1,11 @@
 import React from "react";
 import SearchInput from "./SearchInput";
 import Button from "../shops/Button";
-
+import { useNavigate} from 'react-router-dom'
 
 // type is either consumer or shop
 function Hero({type}) {
+  let navigate = useNavigate()
   return (
     <div className={` text-center  rounded-md wrapper flex flex-col items-center justify-center gap-y-10  aspect-video  scale-90  ${type === "consumer" ? "gradient-layer-consumer" : "gradient-layer-shops"}`}>
       <div className="y-margin ">
@@ -16,7 +17,7 @@ function Hero({type}) {
         </p>
       </div>
       <div className="">
-       { type === "consumer" ? <SearchInput /> : <button className="w-full bg-clr-orange-500 text-white textStyleBold22 py-3 px-6 rounded-lg hover:bg-clr-orange-600 transition-colors duration-200" type={type}>
+       { type === "consumer" ? <SearchInput /> : <button className="w-full bg-clr-orange-500 text-white textStyleBold22 py-3 px-6 rounded-lg hover:bg-clr-orange-600 cursor-pointer transition-colors duration-200" type={type} onClick={()=>navigate("/myshops")}>
             Add your shop
         </button>}
       </div>

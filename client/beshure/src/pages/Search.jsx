@@ -21,7 +21,7 @@ function Search() {
   const [isSearching, setIsSearching] = useState(false);
 
   // Move form state here
-  const { register, handleSubmit, watch ,errors,clearErrors} = useForm({
+  const { register, handleSubmit, watch, formState: { errors }, clearErrors} = useForm({
     defaultValues: {
       search: searchQuery,
     },
