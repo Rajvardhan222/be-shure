@@ -1,21 +1,13 @@
 import React from "react";
 
-function AlertBox({ children ,whenClose}) {
-    let [isOpen, setIsOpen] = React.useState(true);
-    let [shouldRender, setShouldRender] = React.useState(true);
 
-    const handleClose = () => {
-        setIsOpen(false);
-        // Wait for animation to complete before unmounting
-        setTimeout(() => {
-            setShouldRender(false);
-        }, 300);
-    };
+function AlertBox({isOpen, setIsOpen, children, whenClose, formId, onClose, shouldRender,loading }) {
+    
+    
 
     if(!shouldRender) {
        return <div onClick={() => {
         setIsOpen(true);
-        setShouldRender(true);
        }}>
         {whenClose()}
        </div>
@@ -39,13 +31,20 @@ function AlertBox({ children ,whenClose}) {
 
           {/* Buttons in Mac style */}
           <div className="flex justify-center space-x-4 mt-6">
-            <button className="px-6 py-1.5 bg-gray-200 rounded-md text-gray-800 hover:bg-gray-300 transition cursor-pointer"
-            onClick={handleClose}
+            <button 
+              type="button"
+              className="px-6 py-1.5 bg-gray-200 rounded-md hover:scale-110 active:scale-90 transition-all text-gray-800 hover:bg-gray-300  cursor-pointer"
+              onClick={onClose}
             >
               Cancel
             </button>
-            <button className="px-6 py-1.5 bg-blue-500 rounded-md text-white hover:bg-blue-600 transition">
-              Proceed
+            <button 
+              type="submit"
+              form={formId || "alertbox-form"}
+              className={`px-6 py-1.5 bg-blue-500 rounded-md   transition-all text-white hover:bg-blue-600  ${loading ? "opacity-50 cursor-not-allowed hover:scale-100 active:scale-100" : "active:scale-90 hover:scale-110"}`}
+              disabled={loading}
+            >
+             {loading ? ("Processing...") : ("Proceed")}
             </button>
           </div>
         </div>

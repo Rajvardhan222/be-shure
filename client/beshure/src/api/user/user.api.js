@@ -25,3 +25,10 @@ export const loginUser = withErrorHandler(
     return response.data;
   }
 );
+
+export const userLoggedIn = withErrorHandler(
+  async () => {
+    let response = await axiosInstance.get("/users/isLoggedIn");
+    return response.data;
+  }
+);

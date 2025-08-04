@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { registerUser as registerUserAPI, loginUser as loginUserAPI } from '../../api/user/user.api.js';
+import { registerUser as registerUserAPI, loginUser as loginUserAPI, userLoggedIn } from '../../api/user/user.api.js';
 
 // Async thunk for user registration
 export const registerUser = createAsyncThunk(
@@ -45,5 +45,14 @@ export const logoutUser = createAsyncThunk(
     // If you have a logout API endpoint, call it here
     // await logoutUserAPI();
     return true;
+  }
+);
+
+
+export const isUserLoggedIn = createAsyncThunk(
+  'user/isUserLoggedIn',
+  async () => {
+    const response = await userLoggedIn();
+    return response.data;
   }
 );

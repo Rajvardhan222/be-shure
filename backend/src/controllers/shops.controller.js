@@ -56,7 +56,7 @@ const listShops = asyncHandler(async (req, res) => {
 
   res
     .status(200)
-    .json(new ApiResponse(200, "Shops retrieved successfully", shops));
+    .json(new ApiResponse(200, shops,"Shops retrieved successfully"));
 });
 
 const getShopById = asyncHandler(async (req, res) => {

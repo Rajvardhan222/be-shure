@@ -6,6 +6,7 @@ import ShopList from "./pages/ShopList"
 import Product from "./pages/Product"
 import Login from "./pages/Login"
 import ShopLanding from "./pages/ShopLanding"
+import ProtectedRoute from "./components/shared/ProtectedRoute"
 
 function App() {
   
@@ -22,11 +23,19 @@ function App() {
         <Route path="/shops" element={<ShopLanding />} />
 
 
-        {/* <Router path="/products" /> */}
+        {/* // private routes - require authentication */}
 
-        <Route path="/shops/:userId" element={<ShopList />} />
+        <Route path="/myshops/" element={
+          <ProtectedRoute>
+            <ShopList />
+          </ProtectedRoute>
+        } />
 
-        <Route path="/product-list/:shopId" element={<Product />} />
+        <Route path="/product-list/:shopId" element={
+          <ProtectedRoute>
+            <Product />
+          </ProtectedRoute>
+        } />
 
 
 

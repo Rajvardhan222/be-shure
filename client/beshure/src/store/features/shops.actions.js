@@ -7,7 +7,7 @@ export const createNewShop = createAsyncThunk(
     async ({shopImage, name, description, latitude, longitude, address}, {rejectWithValue}) => {
 
         try {
-            const response = await createNewShopApi({shopImage, name, description, latitude, longitude, address});
+            const response = await createNewShopApi(shopImage, name, description, latitude, longitude, address);
 
             if (response.error) {
                 return rejectWithValue(response.error);
@@ -59,7 +59,7 @@ export const listShops = createAsyncThunk(
             if (response.error) {
                 return rejectWithValue(response.error);
             }
-            return response;
+            return response.data;
         } catch (error) {
             return rejectWithValue(error.message || 'Failed to list shops');
         }

@@ -7,9 +7,20 @@ import { getDistance } from "../utils/distance.js";
 const createProduct = asyncHandler(async (req, res) => {
   const { name, price, category, available, shopId } = req.body;
 
-  if (!name || !price || !category || !available || !shopId) {
+  console.log(name, price, category, available, shopId);
+
+  if (!name || !price || !category || available === undefined || available === null || !shopId) {
     throw new ApiError(400, "All fields are required");
   }
+
+
+  // Check if the shop exists
+  const productAlreadyThere = await prisma.product.findUnique({
+    where: {name:name} })
+
+    if(productAlreadyThere){
+      throw new ApiError(400, "A product with this name already exists in your shop (Please dont confuse your customers)");
+    }
 
   // add the product to the database
   const product = await prisma.product.create({
@@ -17,7 +28,7 @@ const createProduct = asyncHandler(async (req, res) => {
       name,
       price : parseInt(price),
       category,
-      available : available === "true",
+      available : available,
       shopId: shopId,
     },
   });
@@ -47,7 +58,7 @@ const listProducts = asyncHandler(async (req, res) => {
 
   res
     .status(200)
-    .json(new ApiResponse(200, "Products retrieved successfully", products));
+    .json(new ApiResponse(200,products, "Products retrieved successfully"));
 });
 
 const updateProductAvailability = asyncHandler(async (req, res) => {
@@ -78,6 +89,7 @@ const updateProductAvailability = asyncHandler(async (req, res) => {
 
 const getNearbyProducts = asyncHandler(async (req, res) => {
   const { latitude, longitude, productName } = req.query;
+  console.log("Latitude:", latitude, "Longitude:", longitude, "Product Name:", productName);
 
   if (!latitude || !longitude) {
     throw new ApiError(400, "Latitude and longitude are required");
@@ -100,12 +112,12 @@ const getNearbyProducts = asyncHandler(async (req, res) => {
       shop: {
         is: {
           latitude: {
-            gte: parseFloat(latitude) - 0.1,
-            lte: parseFloat(latitude) + 0.1,
+            gte: parseFloat(latitude) - 0.5,
+            lte: parseFloat(latitude) + 0.5,
           },
           longitude: {
-            gte: parseFloat(longitude) - 0.1,
-            lte: parseFloat(longitude) + 0.1,
+            gte: parseFloat(longitude) - 0.5,
+            lte: parseFloat(longitude) + 0.5,
           },
         },
       },
@@ -115,7 +127,7 @@ const getNearbyProducts = asyncHandler(async (req, res) => {
     },
   });
 
-  
+  console.log(products)
 
   products.sort((a, b) => {
     const distA = getDistance(

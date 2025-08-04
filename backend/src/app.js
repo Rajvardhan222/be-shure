@@ -7,8 +7,8 @@ dotenv.config({
     path: "./.env"
 });
 app.use(cors({
-    origin: "*",
-    credentials:false,
+  origin: "http://localhost:5173",
+  credentials: true,
 }))
 
 app.use(express.json(

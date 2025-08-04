@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { registerUser, loginUser, logoutUser } from './user.actions.js';
+import { registerUser, loginUser, logoutUser, isUserLoggedIn } from './user.actions.js';
 
 const initialState = {
   user: null,
@@ -100,9 +100,29 @@ const userSlice = createSlice({
         // Clear tokens from localStorage
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
+      })
+
+      .addCase(isUserLoggedIn.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(isUserLoggedIn.fulfilled, (state, action) => {
+        console.log(action)
+        state.isLoading = false;
+        state.isAuthenticated = action.payload?.data?.isLoggedIn;
+        state.user = action.payload.data.user || null;
+        state.error = null;
+      })
+      .addCase(isUserLoggedIn.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isAuthenticated = false;
+        state.user = null;
+        state.token = null;
+        state.error = action.payload;
       });
-  },
-});
+}})
+
+
 
 // Export actions
 export const {

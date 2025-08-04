@@ -42,7 +42,7 @@ function Register_login({ type }) {
     if (isAuthenticated && type === "login") {
       setSuccessMessage("Login successful! Redirecting...");
       setTimeout(() => {
-        navigate("/shops");
+        navigate("/myshops");
       }, 1500);
     }
   }, [isAuthenticated, type, navigate]);
@@ -165,7 +165,8 @@ function Register_login({ type }) {
                 ? "Already have an account?"
                 : "Don't have an account?"}
               <a
-                href="/login"
+                href={type === "register" ? "/login" : "/register"}
+              
                 className="text-clr-orange-500 hover:text-clr-orange-600 ml-1"
               >
                 {type === "register" ? "Sign in" : "Create an account"}

@@ -3,11 +3,12 @@ import axiosInstance from "../azure";
 
 export const createNewProduct = withErrorHandler(
     async (shopId,name,price,category,available) => {
-        const response = await axiosInstance.post(`/products/new/${shopId}`, {
+        const response = await axiosInstance.post(`/products/new`, {
             name,
             price,
             category,
-            available
+            available,
+            shopId
         });
 
         return response.data;

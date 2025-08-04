@@ -6,7 +6,7 @@ import Search from './Search'
 function Home() {
   return (
     <div className='mx-6'>
-        <Hero type={"shop"}/>
+        <Hero type={"consumer"}/>
     </div>
   )
 }

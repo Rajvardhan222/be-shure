@@ -84,6 +84,22 @@ const registerUser = asyncHandler(async (req, res) => {
     .json(new ApiResponse(201, "User created successfully", user));
 });
 
+const userLoggedIn = asyncHandler(async (req, res) => {
+  // Check if user exists in the request object (set by JWT middleware)
+  console.log("This is how user looks lilkel from tthe here",req.user)
+  if (!req.user) {
+    // User is not logged in
+    return res
+      .status(200)
+      .json(new ApiResponse(200, { isLoggedIn: false }, "User is not logged in"));
+  }
+
+  // User is logged in
+  return res
+    .status(200)
+    .json(new ApiResponse(200, { isLoggedIn: true, user: req.user }, "User is logged in"));
+});
+
 const loginUser = asyncHandler(async (req, res) => {
   const { name, password } = req.body;
 
@@ -119,10 +135,16 @@ const loginUser = asyncHandler(async (req, res) => {
 
   delete user.password; // remove password from user object
 
+  const option = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production", // set secure flag in production
+    sameSite: "Strict", // set sameSite attribute
+  }
+
   return res
     .status(200)
-    .cookie("accessToken", accessToken)
-    .cookie("refreshToken", refreshToken)
+    .cookie("accessToken", accessToken,option)
+    .cookie("refreshToken", refreshToken,option)
     .json(
       new ApiResponse(
         200,
@@ -136,4 +158,4 @@ const loginUser = asyncHandler(async (req, res) => {
     );
 });
 
-export { registerUser, loginUser, generateAccessAndRefereshToken };
+export { registerUser, loginUser, generateAccessAndRefereshToken ,userLoggedIn};

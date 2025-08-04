@@ -2,15 +2,30 @@ import { withErrorHandler } from "../../utils/apiWrapper";
 import axiosInstance from "../azure.js";
 
 export const createNewShop = withErrorHandler(
-    async (shopImage,name,description,latitude,longitude,address) => {
+    async (shopImage, name, description, latitude, longitude, address) => {
+        console.log("API Call Parameters:", {
+            shopImage: shopImage?.name || shopImage,
+            name,
+            description,
+            latitude,
+            longitude,
+            address
+        });
+
         const formData = new FormData();
 
-        formData.append("shopImage",shopImage);
-        formData.append("name",name);
-        formData.append("description",description);
-        formData.append("latitude",latitude);
-        formData.append("longitude",longitude);
-        formData.append("address",address);
+        formData.append("shopImage", shopImage);
+        formData.append("name", name);
+        formData.append("description", description);
+        formData.append("latitude", latitude);
+        formData.append("longitude", longitude);
+        formData.append("address", address);
+
+        // Debug FormData contents
+        console.log("FormData contents:");
+        for (let [key, value] of formData.entries()) {
+            console.log(`${key}:`, value);
+        }
 
         const response = await axiosInstance.post("/shops/new", formData, {
             headers: {
