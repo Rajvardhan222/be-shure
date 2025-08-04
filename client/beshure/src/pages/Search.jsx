@@ -95,7 +95,8 @@ function Search() {
           register={register}
           handleSubmit={handleSubmit}
           onSubmit={onSubmit}
-         
+         errors={errors}
+         clearErrors={clearErrors}
           loading={isSearching} // Use local loading state instead of Redux loading
         />
       { currentSearchValue !== '' && <h1 className='mt-5 text-xl '>

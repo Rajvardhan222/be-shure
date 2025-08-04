@@ -1,6 +1,7 @@
 import React from "react";
 
 function SearchBar({ register, handleSubmit, onSubmit, loading }) {
+
   return (
     <div className="flex items-center justify-between bg-clr-white-off px-4 py-1 rounded-lg gap-x-2 flex-wrap gap-2">
       <div className="flex items-center space-x-2  ">
