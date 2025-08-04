@@ -119,7 +119,7 @@ function Search() {
                 <div className='flex flex-col gap-y-4'>
                   <p className='textStyleBodyMedium'>{product.shop?.name || 'Unknown Shop'}</p>
                   <p className='textStyleRegular14 text-clr-brown-500'>{product.shop?.address || 'Address not available'}</p>
-                  <p className='text-sm text-gray-600'>Product: {product.name} - ${product.price}</p>
+                  <p className='text-sm text-gray-600'>Product: {product.name} - ₹{product.price}</p>
                 </div>
                 <div className='textStyleBodyMedium cursor-pointer'
                 onClick={() => {
