@@ -37,7 +37,7 @@ const generateAccessAndRefereshToken = async (userId) => {
 };
 
 const registerUser = asyncHandler(async (req, res) => {
-  const { fullname, email, phone, password } = req.body;
+  const { fullname, password } = req.body;
 
   // validate input from frontend
 
@@ -52,6 +52,8 @@ const registerUser = asyncHandler(async (req, res) => {
       name: fullname,
     },
   });
+
+  
 
   if (existingUser) {
     throw new ApiError(400, "User already exists with this username");
