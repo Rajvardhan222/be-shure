@@ -7,7 +7,7 @@ dotenv.config({
     path: "./.env"
 });
 app.use(cors({
-  origin: "https://beshure.rajvardhan.me",
+  origin: "http://localhost:5173",
   credentials: true,
 }))
 
