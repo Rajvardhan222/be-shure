@@ -37,7 +37,7 @@ const generateAccessAndRefereshToken = async (userId) => {
 };
 
 const registerUser = asyncHandler(async (req, res) => {
-  const { fullname, email, phone, password } = req.body;
+  const { fullname, password } = req.body;
 
   // validate input from frontend
 
@@ -45,13 +45,18 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new ApiError(400, "All fields are required");
   }
 
+  const name = fullname.trim();
+
+
   // check if user already exists
 
   const existingUser = await prisma.user.findUnique({
     where: {
-      name: fullname,
+      name: name,
     },
   });
+
+  
 
   if (existingUser) {
     throw new ApiError(400, "User already exists with this username");
@@ -64,7 +69,7 @@ const registerUser = asyncHandler(async (req, res) => {
   // create user
   const user = await prisma.user.create({
     data: {
-      name: fullname,
+      name: name,
 
       password: hashedPassword,
       refreshToken: "",

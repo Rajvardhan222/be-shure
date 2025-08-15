@@ -15,6 +15,16 @@ const createProduct = asyncHandler(async (req, res) => {
 
 
   // Check if the shop exists
+  const shopExists = await prisma.shops.findUnique({
+    where: {
+      id: shopId,
+    },
+  });
+
+  if (!shopExists) {
+    throw new ApiError(404, "Shop not found");
+  }
+
   const productAlreadyThere = await prisma.product.findUnique({
     where: {
       name_shopId: {
